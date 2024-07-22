@@ -1,19 +1,44 @@
 <script setup>
   import carsData from "../data.json"
-  import { ref } from 'vue';
+  import { ref, computed } from 'vue';
   import { useRouter } from 'vue-router';
 
   const router = useRouter()
   const cars = ref(carsData)
+  const name = ref("all")
+
+  const filteredCars = computed(() => {
+    if (name.value !== "all") {
+      return cars.value.filter(c => c.name.toLowerCase() === name.value)
+    }
+    return cars.value
+  })
+
+  const handleChange = () => {
+    router.push({ query: { name: name.value } })
+  }
+
 </script>
 
 <template>
   <div class="container">
     <h1 class="heading">Our Cars</h1>
+    <select @change="handleChange" v-model="name">
+      <option value="all">All</option>
+      <option value="ferrari">Ferrari</option>
+      <option value="bmw">BMW</option>
+      <option value="nissan">Nissan</option>
+      <option value="bentley">Bentley</option>
+      <option value="porsche">Porsche</option>
+    </select>
     <div class="cards">
-      <div @click="router.push(`/car/${car.id}`)" class="card" v-for="car in cars" :key="car.make">
+      <div v-if="filteredCars.length !== 0" @click="router.push(`/car/${car.id}`)" class="card"
+        v-for="car in filteredCars" :key="car.make">
         <p class="name">{{ car.name }} {{ car.make }}</p>
         <p class="price">${{ car.price }}</p>
+      </div>
+      <div v-else>
+        <p>No data found :(</p>
       </div>
     </div>
   </div>
@@ -31,7 +56,7 @@
     padding: 24px;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
-    width: 240px;
+    width: 280px;
     text-wrap: balance;
     transition: transform 0.25s;
     cursor: pointer;
