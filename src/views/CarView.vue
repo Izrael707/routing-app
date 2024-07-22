@@ -1,11 +1,12 @@
 <script setup>
 
-  import { useRoute } from 'vue-router';
+  import { useRoute, useRouter, RouterView } from 'vue-router';
   import { ref, onBeforeMount } from 'vue';
   import cars from "../data.json"
 
   const car = ref(null)
   const route = useRoute()
+  const router = useRouter()
   const { id } = route.params
   onBeforeMount(() => {
     car.value = cars.find(c => c.id === parseInt(id))
@@ -18,8 +19,10 @@
     <div v-if="car" class="card">
       <h1 class="heading">The Car</h1>
       <p class="make">Make: {{ car.make }}</p>
-      <p class="name">Name: {{ car.name }}</p>
+      <p class="name" @click="() => router.push(`/${id}/dealer`)">Name: {{ car.name }}</p>
       <p class="price">Price: ${{ car.price }}</p>
+      <RouterView />
+      <button @click="router.back()">Go Back</button>
     </div>
     <div v-else>
       <h1 class="heading">Car not Found :(</h1>
@@ -42,5 +45,10 @@
     font-style: oblique;
     border: 1px solid #eee;
     padding: 12px;
+  }
+
+  .name {
+    cursor: pointer;
+    background-color: #ddd;
   }
 </style>
