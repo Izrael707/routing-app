@@ -1,11 +1,16 @@
 <script setup>
   import carsData from "../data.json"
-  import { ref, computed } from 'vue';
-  import { useRouter } from 'vue-router';
+  import { ref, computed, onMounted } from 'vue';
+  import { useRouter, useRoute } from 'vue-router';
 
   const router = useRouter()
+  const route = useRoute()
   const cars = ref(carsData)
   const name = ref("all")
+
+  onMounted(() => {
+    name.value = route.query.name || "all"
+  })
 
   const filteredCars = computed(() => {
     if (name.value !== "all") {
