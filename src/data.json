@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name":"Ford",
+    "make":"Mustang",
+    "price": 90000
+  },
+  {
+    "id": 2,
+    "name":"Nissan",
+    "make":"Murano",
+    "price": 10000
+  },
+  {
+    "id": 3,
+    "name":"Honda",
+    "make":"Civic",
+    "price": 8000
+  },
+  {
+    "id": 4,
+    "name":"Bentley",
+    "make":"Bentayga",
+    "price": 120000
+  },
+  {
+    "id": 5,
+    "name":"Ferari",
+    "make":"458 Spider",
+    "price": 200000
+  },
+  {
+    "id": 6,
+    "name":"BMW",
+    "make":"M5 CS",
+    "price": 75000
+  }
+]
